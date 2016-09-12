@@ -1,0 +1,2 @@
+SocialBlog::Application.config.secret_key_base = '
+  9cca6c588f4a5168dc43ba0423b13aa9943346233c2a998a818c489e72f5d6dd2ef8cdbe574ee0223488d1efbe42fed74c7b35bcd3b15e5fa80c944da4a0ad93'
