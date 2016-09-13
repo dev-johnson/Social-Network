@@ -1,0 +1,38 @@
+<div class ='text-center'>
+<h2> SocialBlog - Log in</h2>
+<div class="col-lg-4"></div>
+<div class ='col-lg-4'>
+<%= form_for :user, url: login_path , method: :post,:html => {:class=>"form-horizontal"} do |f| %>
+  <div class="form-group">
+    <%= f.email_field :email, autofocus: true ,:placeholder => 'Email'%>
+  </div>
+
+  <div class="form-group">
+    <%= f.password_field :password, autocomplete: "off" ,:placeholder => 'Password'%>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="form-group">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
+  <% end -%>
+
+  <div class="actions">
+    <%= f.submit "Log in" %>
+  </div>
+<% end %>
+<span style ='float:left'>
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <%= link_to "Sign up", "/register" %>
+<% end -%>
+</span>
+<span style ='float:right'>
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+<% end -%>
+</span>
+</div>
+<div class="col-lg-4"></div>
+
+</div>

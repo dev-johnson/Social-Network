@@ -7,12 +7,39 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+
+
+   <%if user_signed_in?%>
+<nav class="navbar navbar-default" >
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Social Blog</a>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <%= current_user.first_name%> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          <li><%= link_to 'Profile', logout_path%></li>
+          <li><%= link_to 'Logout', logout_path%></li>
+          </ul>
+        </li>
+
+    </ul>
+  </div>
+</nav>
+<%end%>
 <% if notice %>
   <p class="alert alert-success"><%= notice %></p>
 <% end %>
 <% if alert %>
   <p class="alert alert-danger"><%= alert %></p>
 <% end %>
+
+
+
+<!--  -->
 
 <%= yield %>
 

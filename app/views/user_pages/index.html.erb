@@ -1,0 +1,25 @@
+<h1>Listing user_pages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_pages.each do |user_page| %>
+      <tr>
+        <td><%= link_to 'Show', user_page %></td>
+        <td><%= link_to 'Edit', edit_user_page_path(user_page) %></td>
+        <td><%= link_to 'Destroy', user_page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User page', new_user_page_path %>

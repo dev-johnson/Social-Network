@@ -1,9 +1,26 @@
 Rails.application.routes.draw do
-  # The priority is based upon order of creation: first created -> highest priority.
+  resources :user_pages
+
+devise_for :users, controllers: {sessions: "user_sessions", registrations: "registrations", :confirmations => 'confirmations'}
+
+ # ---------------------------------------------------------------------------------------------------------------------------
+ # DEVISE CUSTOM ROUTES
+ # ---------------------------------------------------------------------------------------------------------------------------
+
+ devise_scope :user do
+   get   "/login"                                      => "user/sessions#new"
+   post   "/login"                                      => "user/sessions#create"
+
+   # match 'login', to: 'user/sessions#new', via: [:get, :post]
+   get   "/logout"                                     => "user/sessions#destroy"
+   get   "/register"                                   => "user/registrations#new"
+   get   "/recover"                                    => "user/passwords#new"
+  post   "/updates"                             => "user/registrations#create"
+ end  # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'user_pages#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

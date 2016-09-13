@@ -1,0 +1,49 @@
+<div class ='container'><h2>Sign up</h2>
+
+<%= form_for :user, url: updates_path, method: :post do |f| %>
+  <%= devise_error_messages! %>
+
+<div class="">
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+    <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  </div>
+<div class ="">
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email%>
+  </div>
+
+    <div class="field">
+    <%= f.label :image %><br />
+    <%= f.file_field :image %>
+  </div>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+    <%= render "users/shared/links" %>
+  </div>
+<% end %>
+
+
+</div>
