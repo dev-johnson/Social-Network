@@ -14,3 +14,21 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+$( document ).ready(function() {
+
+	$.fn.update_like  = function(ele,id) {
+	formData = {post: id}
+	 $.ajax({
+	 	url: '/like',
+	 	data: "getId="+id,
+	 	method: 'POST',
+	 	success: function(data) {
+	 		$('#like_'+id).empty().append(data['value']+" Likes ");
+	 	},
+	 	error: function(errorThrown) {
+	 		alert('Something went wrong');
+	 	}
+	 });
+	 return false;
+	}
+});

@@ -22,6 +22,10 @@ devise_for :users, controllers: {sessions: "user_sessions", registrations: "regi
   # You can have the root of your site routed with "root"
   root 'user_pages#index'
 
+  resources :comments
+
+  post "/like"=> "user_pages#like_count"
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

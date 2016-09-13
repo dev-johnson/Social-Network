@@ -1,4 +1,4 @@
-class UserPagesController < ApplicationController
+  class UserPagesController < ApplicationController
   before_action :set_user_page, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -20,6 +20,7 @@ class UserPagesController < ApplicationController
 
   def new
     @user_page = UserPage.new
+    @comment = Comment.new
     respond_with(@user_page)
   end
 
@@ -34,6 +35,7 @@ class UserPagesController < ApplicationController
     @full_name = "#{@user_name.first_name } #{ @user_name.last_name}"
     @user_page.user_id = @user_name.id
     @user_page.name = @full_name
+    @user_page.like=0
 
   end
     @user_page.save
@@ -49,6 +51,17 @@ class UserPagesController < ApplicationController
   def destroy
     @user_page.destroy
     respond_with(@user_page)
+  end
+
+    def like_count
+    begin
+      @count= UserPage.find(params[:getId])
+      @count.like =@count.like+1
+      @count.save
+      render json: {value: @count.like}, status: 200
+    rescue Exception => e
+      render nothing: true, status: 500
+    end
   end
 
   private

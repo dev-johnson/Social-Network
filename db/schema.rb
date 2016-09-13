@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160913091027) do
     t.integer  "user_id"
     t.string   "name"
     t.text     "post"
+    t.integer  "like"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -4,6 +4,7 @@ class CreateUserPages < ActiveRecord::Migration
       t.integer :user_id
       t.string :name
       t.text :post
+      t.integer :like
 
       t.timestamps
     end
