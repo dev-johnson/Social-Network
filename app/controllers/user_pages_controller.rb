@@ -4,11 +4,17 @@ class UserPagesController < ApplicationController
   respond_to :html
 
   def index
-    @user_pages = UserPage.all
-    respond_with(@user_pages)
+    if  user_signed_in?
+      @user_pages = UserPage.all
+      @user_page = UserPage.new
+      respond_with(@user_pages)
+  else
+    redirect_to '/login'
+  end
   end
 
   def show
+    @user_page = UserPage.find(params[:id])
     respond_with(@user_page)
   end
 
@@ -22,7 +28,16 @@ class UserPagesController < ApplicationController
 
   def create
     @user_page = UserPage.new(user_page_params)
+ if user_signed_in?
+
+    @user_name= User.find(current_user.id)
+    @full_name = "#{@user_name.first_name } #{ @user_name.last_name}"
+    @user_page.user_id = @user_name.id
+    @user_page.name = @full_name
+
+  end
     @user_page.save
+    redirect_to root_path and return
     respond_with(@user_page)
   end
 
@@ -42,6 +57,6 @@ class UserPagesController < ApplicationController
     end
 
     def user_page_params
-      params[:user_page]
+      params[:user_page].permit(:post, :name, :user_id)
     end
 end

@@ -1,25 +1,38 @@
-<h1>Listing user_pages</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @user_pages.each do |user_page| %>
-      <tr>
-        <td><%= link_to 'Show', user_page %></td>
-        <td><%= link_to 'Edit', edit_user_page_path(user_page) %></td>
-        <td><%= link_to 'Destroy', user_page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+<div class=" container">
+  <div class ="col-lg-6">
+  <div  style="position:">
+  <img src = "<%= current_user.image.url%>" style ="max-height:180px;">
+  <h2>Let's do a post</h2>
+  <%= render 'form'%>
+  </div>
+  </div>
+  <div class="col-lg-6">
+  <h2>Posts</h2>
+    <%@user_pages.each do |user_page|%>
+      <div class ="panel panel-primary">
+        <div class="panel-heading">
+        <span>
+        <% @id = user_page.user_id %>
+        <%@img  = User.find(@id)%>
+         <img src= "<%= @img.image.url %> " style ="max-height: 25px;">
+          <%= user_page.name%>
+          </span>
+        </div>
+        <div class="panel-body">
+          <p><%= user_page.post%></p>
+            <div style ='float:right'>
+<i class=" fa-angellist" aria-hidden="true"></i>
+             <% if current_user.id == user_page.user_id %>
+               <span><%= link_to 'Delete post', user_page, method: :delete, data: { confirm: 'Are you sure?' } %></span>&nbsp;&nbsp;&nbsp;
+               <span><%= link_to 'Edit post', edit_user_page_path(user_page) %></span>
+                <%end%>
+            </div>
+        </div>
 
-<%= link_to 'New User page', new_user_page_path %>
+      </div>
+    <%end%>
+  </div>
+</div>
