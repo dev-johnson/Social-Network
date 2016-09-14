@@ -29,18 +29,22 @@
 
   def create
     @user_page = UserPage.new(user_page_params)
- if user_signed_in?
+    begin
+      raise unless current_user.approved == "true"
+        @user_name= User.find(current_user.id)
+        @full_name = "#{@user_name.first_name } #{ @user_name.last_name}"
+        @user_page.user_id = @user_name.id
+        @user_page.name = @full_name
+        @user_page.like=0
+        @user_page.save
+        redirect_to root_path and return
+        respond_with(@user_page)
 
-    @user_name= User.find(current_user.id)
-    @full_name = "#{@user_name.first_name } #{ @user_name.last_name}"
-    @user_page.user_id = @user_name.id
-    @user_page.name = @full_name
-    @user_page.like=0
+    rescue Exception => e
+     redirect_to :back
+      flash[:notice] = "You are not yet approved to do a post"
 
-  end
-    @user_page.save
-    redirect_to root_path and return
-    respond_with(@user_page)
+    end
   end
 
   def update

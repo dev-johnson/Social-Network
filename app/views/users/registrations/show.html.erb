@@ -1,0 +1,10 @@
+<div class="container">
+<img src ="<%= @user.image.url%>"  style ="max-height:180px;border-radius: 48%/50%;">
+<h2><%= @user.first_name%></h2>
+<p>
+  <span><%=@user.email%></span>
+</p>
+<div>
+   <span><a href="http://localhost:3000/approve?id=<%= @user.id %>" target="_blank" class="btn btn-info"> Approve</a>
+</div>
+</div>

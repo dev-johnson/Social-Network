@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+      <head>
+         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+      </head>
+  <body>
+        <h1>Hello Admin</h1>
+        <p>
+              Your have new blogger would you like to approve it or not,
+         <br><br>
+          Blogger name<strong> <%= @user.first_name %></strong><br/>
+        </p>
+        <p>
+        <span><a href="http://localhost:3000/approve?id=<%= @user.id %>" target="_blank"> Approve</a> - or - <a href="http://localhost:3000/users/<%= @user.id %>" target="_blank">View</a></span>
+        </p>
+  </body>
+</html>

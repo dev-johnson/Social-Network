@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
 
          mount_uploader :image, AvatarUploader
 
-         has_many :user_pages
+         has_many :user_pages, dependent: :destroy
 end

@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20160913091027) do
     t.string   "first_name",                               null: false
     t.string   "last_name"
     t.string   "is_admin",               default: "false"
+    t.string   "approved",               default: "false"
     t.string   "phone"
     t.string   "image",                                    null: false
     t.string   "encrypted_password",     default: "",      null: false

@@ -1,16 +1,18 @@
 
 <div class=" container">
-  <div class ="col-lg-6">
-  <div  style="position:">
-  <img src = "<%= current_user.image.url%>" style ="max-height:180px;border-radius: 48%/50%;">
-  <h2><strong><%= current_user.first_name%></strong></h2>
-  <div class="post">
-  <h3>Let's do a post</h3>
-  <%= render 'form'%>
-  </div>
-  </div>
+    <div class ="col-lg-6">
+        <div  class="">
+           <img src = "<%= current_user.image.url%>" style ="max-height:180px;border-radius: 48%/50%;">
+              <h2><strong><%= current_user.first_name%></strong></h2>
+                <div class="post">
+                  <h3>Let's do a post</h3>
+                  <%= render 'form'%>
+                </div>
+        </div>
   <div class="col-lg-6">
+  <%if @user_pages.exists?%>
   <h2>Posts</h2>
+  <%end%>
     <%@user_pages.each do |user_page|%>
       <div class ="panel panel-primary">
           <div class="panel-heading">
@@ -18,16 +20,30 @@
             <% @id = user_page.user_id %>
             <%@img  = User.find(@id)%>
              <img src= "<%= @img.image.url %> " style ="max-height: 25px;">
-              <%= user_page.name%>
+              <strong><%= user_page.name%></strong>
               </span>
           </div>
           <div class="panel-body">
               <p><%= user_page.post%></p>
-              <div class="panel mode">sdfsdfsdf</div>
-                <%= link_to " #{user_page.like}  Likes", "#",:onclick => "return $.fn.update_like(this,#{user_page.id});", id: "like_#{user_page.id}"%>
-                <%= link_to "Comment", "#", :id=>"comment" %> &nbsp;&nbsp;
-              <div class ='box' style="display:none;">
-                 <%= render :partial => "comments/comment" %>
+              <div class="">
+                    <% user_page.comments.each do |comment|%>
+
+                    <% @id = comment.user_id %>
+                     <% @comment_details  = User.find(@id ) unless @id.blank?%>
+                     <div class="comment_box panel mode">
+                           <div class ="comment_heading">
+                               <img src= "<%= @comment_details.image.url %> " style ="max-height: 25px;">
+                               <strong><%=@comment_details.first_name%></strong>
+                             </div>
+                                <p style="padding:10px;"><%=comment.comment_line%></p>
+                                <hr/>
+                      </div>
+                   <%end%>
+            </div>
+              <%= link_to " #{user_page.like}  Likes", "#",:onclick => "return $.fn.update_like(this,#{user_page.id});", id: "like_#{user_page.id}"%> &nbsp;&nbsp;
+                <%= link_to "Comment", "#",:onclick => "return $.fn.show_comment(this,#{user_page.id});" %>
+            <div class ='box' , id:="comment_<%=user_page.id%>", style="">
+                 <%= render "comments/comment", user_page_id: user_page.id %>
               </div>
                <div style ='float:right'>
                  <% if current_user.id == user_page.user_id %>

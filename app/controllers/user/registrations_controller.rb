@@ -3,14 +3,25 @@ class User::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
+  def show
+    @user = User.find(params[:id])
+  end
   # def new
   #   super
   # end
 
   # POST /resource
   def create
- @user = User.create(user_params)
- redirect_to "/"
+    begin
+    @user = User.create(user_params)
+       AdminMailer.new_user_notification(@user).deliver
+       AdminMailer.admin_notification(@user).deliver
+    redirect_to root_path and return
+    rescue Exception => e
+       render nothing: true, status: 500
+    end
+ # @user = User.create(user_params)
+ # redirect_to "/"
   end
 
   # GET /resource/edit
@@ -60,5 +71,24 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
    def user_params
       params.require(:user).permit(:first_name, :last_name, :phone, :email, :image,:password,:password_confirmation)
+    end
+
+
+    def user_approval
+      begin
+        raise unless current_user.is_admin == "true"
+
+            @id = params[:id]
+            @user = User.find(@id)
+            @user.approved = "true"
+            @user.save
+        redirect_to root_path
+        flash[:alert] ="#{@user.first_name} has been approved....."
+
+      rescue Exception => e
+        redirect_to root_path
+        flash[:notice] = "you are not authorized !!!! ...........  if you are the admin check for log"
+
+      end
     end
 end

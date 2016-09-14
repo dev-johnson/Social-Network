@@ -6,6 +6,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :first_name ,null: false
       t.string :last_name
       t.string :is_admin, default:'false'
+      t.string :approved,default:'false'
       t.string :phone
       t.string :image ,null:false
       t.string :encrypted_password, null: false, default: ""

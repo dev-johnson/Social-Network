@@ -31,4 +31,9 @@ $( document ).ready(function() {
 	 });
 	 return false;
 	}
+
+	$.fn.show_comment = function(ele,id){
+		alert()
+
+	}
 });
