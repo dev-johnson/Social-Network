@@ -11,7 +11,9 @@
           Blogger name<strong> <%= @user.first_name %></strong><br/>
         </p>
         <p>
-        <span><a href="http://localhost:3000/approve?id=<%= @user.id %>" target="_blank"> Approve</a> - or - <a href="http://localhost:3000/users/<%= @user.id %>" target="_blank">View</a></span>
+        <span>
+          <a href="<%= "http://localhost:3000/approve?id=#{@user.id}" %>" target="_blank"> Approve</a> - or - <a href="http://localhost:3000/users/<%= @user.id %>" target="_blank">View</a>
+          </span>
         </p>
   </body>
 </html>
