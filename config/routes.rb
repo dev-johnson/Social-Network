@@ -31,7 +31,10 @@ devise_for :users, controllers: {sessions: "user_sessions", registrations: "regi
 
   resources :comments
 
-  post "/like"=> "user_pages#like_count"
+  post "/like"=> "likes#like_count"
+
+
+  resources :likes
 
 
   # Example of regular route:

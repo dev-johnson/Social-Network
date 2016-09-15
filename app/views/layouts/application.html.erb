@@ -14,14 +14,14 @@
 <nav class="navbar navbar-default" >
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Social Blog</a>
+      <a class="navbar-brand" href="/">Social Blog</a>
     </div>
 
     <ul class="nav navbar-nav navbar-right">
     <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <%= current_user.first_name%> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-          <li><%= link_to 'Profile', logout_path%></li>
+          <li><%= link_to 'Profile', "users/#{current_user.id}"%></li>
           <li><%= link_to 'Logout', logout_path%></li>
           </ul>
         </li>

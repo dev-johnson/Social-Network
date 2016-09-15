@@ -13,6 +13,20 @@
  *= require_tree .
  *= require_self
  */
+
+
+ body{
+  background-image: url("/assets/back.jpg");
+  background-attachment: fixed;
+ }
+.left{
+  background-color: white;
+    border-radius: 13px;
+    padding: 30px;
+    -webkit-box-shadow: -5px 10px 5px 0px rgba(158,153,158,1);
+    -moz-box-shadow: -5px 10px 5px 0px rgba(158,153,158,1);
+    box-shadow: -3px 5px 11px 0px rgba(158,153,158,1);
+}
 .hide{
   display: none;
 }

@@ -11,13 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913091027) do
+ActiveRecord::Schema.define(version: 20160915050857) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
     t.integer  "user_page_id"
     t.string   "holder"
     t.text     "comment_line"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "likes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "user_page_id"
+    t.integer  "comment_id"
+    t.string   "like_status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

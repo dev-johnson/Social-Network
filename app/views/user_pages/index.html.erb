@@ -1,6 +1,6 @@
 
 <div class=" container">
-    <div class ="col-lg-6">
+    <div class ="col-lg-6 left">
         <div  class="">
            <img src = "<%= current_user.image.url%>" style ="max-height:180px;border-radius: 48%/50%;">
               <h2><strong><%= current_user.first_name%></strong></h2>
@@ -40,7 +40,7 @@
                       </div>
                    <%end%>
             </div>
-              <%= link_to " #{user_page.like}  Likes", "#",:onclick => "return $.fn.update_like(this,#{user_page.id});", id: "like_#{user_page.id}"%> &nbsp;&nbsp;
+              <%= link_to " #{user_page.likes.count}  Likes", "#",:onclick => "return $.fn.update_like(this,#{user_page.id});", id: "like_#{user_page.id}"%> &nbsp;&nbsp;
                 <%= link_to "Comment", "#",:onclick => "return $.fn.show_comment(this,#{user_page.id});" %>
             <div class ='box' , id:="comment_<%=user_page.id%>", style="">
                  <%= render "comments/comment", user_page_id: user_page.id %>
