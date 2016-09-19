@@ -58,14 +58,14 @@
   end
 
     def like_count
-    begin
-      @count= UserPage.find(params[:getId])
-      @count.like =@count.like+1
-      @count.save
-      render json: {value: @count.like}, status: 200
-    rescue Exception => e
-      render nothing: true, status: 500
-    end
+      begin
+        @count= UserPage.find(params[:getId])
+        @count.like =@count.like+1
+        @count.save
+        render json: {value: @count.like}, status: 200
+      rescue Exception => e
+        render nothing: true, status: 500
+      end
   end
 
   private

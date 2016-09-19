@@ -11,7 +11,7 @@ class LikesController < ApplicationController
     begin
        @user_page = UserPage.find(params[:getId])
        @user = UserPage.last.likes.where(user_id: "#{current_user.id}")
-      raise if @user_page.blank? || @user.exists?
+          raise if current_user.approved == "false" || @user.exists?
       @like = Like.new
       @like.user_id = current_user.id
       @like.user_page_id = @user_page.id

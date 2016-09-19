@@ -28,6 +28,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
 
+
+gem 'activerecord-session_store'
+
 group :development do
 
   gem 'better_errors', '2.1.1'

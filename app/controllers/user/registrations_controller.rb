@@ -1,10 +1,15 @@
 class User::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
-# before_filter :configure_account_update_params, only: [:update]
-
+before_filter :authenticate_user!
   # GET /resource/sign_up
   def show
-    @user = User.find(params[:id])
+    begin
+      @user = User.find(params[:id])
+      raise unless check_current_user @user
+    rescue Exception => e
+      flash[:notice] = "You can't do that."
+      redirect_to "/"
+    end
   end
   # def new
   #   super
@@ -14,14 +19,22 @@ class User::RegistrationsController < Devise::RegistrationsController
   def create
     begin
     @user = User.create(user_params)
+    sign_in(@user)
        AdminMailer.new_user_notification(@user).deliver
        AdminMailer.admin_notification(@user).deliver
-    redirect_to root_path and return
+         # user = @user
+         # sign_in(@user)
+        # cooies.permanent.signed[:remember_token] = [user.id, user.salt]
+        # session[:current_user] = user
+        # current_user = user
+        # redirect_to after_sign_in_path(user)
+         redirect_to "/"
     rescue Exception => e
+       puts e.backtrace
        render nothing: true, status: 500
     end
- # @user = User.create(user_params)
- # redirect_to "/"
+         # @user = User.create(user_params)
+         # redirect_to "/"
   end
 
   # GET /resource/edit
@@ -62,7 +75,8 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
-  #   super(resource)
+  #   sign_in(:sign, user)
+  #   redirect_to "/"
   # end
 
   # The path used after sign up for inactive accounts.
@@ -91,4 +105,15 @@ class User::RegistrationsController < Devise::RegistrationsController
 
       end
     end
+
+    private
+    def check_current_user user
+      return true if current_user && (current_user.admin?)
+      if (current_user && (current_user.id == user.id))
+        return true
+      else
+        return false
+      end
+    end
+
 end

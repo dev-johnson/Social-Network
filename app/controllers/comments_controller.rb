@@ -12,10 +12,11 @@ class CommentsController < ApplicationController
   def create
     begin
       @user_page = UserPage.find params[:comment][:user_page_id]
-      raise if @user_page.blank?
-      @user_page.comments.create(user_id: current_user.id, comment_line: params[:comment][:comment_line])
-      flash[:notice] = "Updated successfully"
-      redirect_to :back
+      raise if  current_user.approved == "false"
+        @user_page.comments.create(user_id: current_user.id, comment_line: params[:comment][:comment_line])
+        redirect_to :back
+        flash[:notice] = "Updated successfully"
+
     rescue Exception => e
       flash[:notice] = "You are not yet approved to do a post"
       redirect_to :back

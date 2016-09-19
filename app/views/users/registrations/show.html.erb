@@ -1,10 +1,18 @@
 <div class="container">
-<img src ="<%= @user.image.url%>"  style ="max-height:180px;border-radius: 48%/50%;">
+<div class="left" style = "margin-top:4%;">
+<img src ="<%= @user.image.url%>" class="img-circle">
 <h2><%= @user.first_name%></h2>
 <p>
   <span><%=@user.email%></span>
 </p>
+<% if current_user.is_admin == "true"%>
 <div>
    <span><a href="http://localhost:3000/approve?id=<%= @user.id %>" target="_blank" class="btn btn-info"> Approve</a>
+</div>
+<%else%>
+<div>
+   <span><a href="http://localhost:3000/users/<%= @user.id %>/edit"  class="btn btn-info"> Edit Your Account</a>
+</div>
+<%end%>
 </div>
 </div>
